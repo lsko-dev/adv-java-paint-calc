@@ -1,12 +1,26 @@
 package edu.wctc;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Serializable {
 
     private ArrayList<Wall> wallList;
+    private static int roomCount;
+    private int roomNumber;
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "area=" + getArea() +
+                ", roomNumber=" + roomNumber +
+                '}';
+    }
 
     public Room(double length, double width, double height) throws BadWidthException, BadHeightException {
+        roomCount++;
+
+        roomNumber = roomCount;
         wallList = new ArrayList<Wall>();
 
         Wall wallA = new Wall(length, height);

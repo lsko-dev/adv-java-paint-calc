@@ -1,5 +1,6 @@
 package edu.wctc;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,11 +10,11 @@ public class PaintCalculator {
     private ArrayList<Room> roomList = new ArrayList<>();
     private Scanner keyboard;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         new PaintCalculator();
     }
 
-    public PaintCalculator() {
+    public PaintCalculator() throws IOException, ClassNotFoundException {
         keyboard = new Scanner(System.in);
 
         int option = 0;
@@ -29,10 +30,10 @@ public class PaintCalculator {
                         createRoom();
                         break;
                     case 2:
-                        // writeFile();
+                        writeFile();
                         break;
                     case 3:
-                        // readFile();
+                        readFile();
                         break;
                     case 4:
                         printRooms();
@@ -46,6 +47,19 @@ public class PaintCalculator {
             }
         }
 
+    }
+
+    private String promptFileName() {
+        System.out.print("room list filename:");
+        return this.keyboard.nextLine();
+    }
+
+    private void writeFile() throws IOException {
+        RoomWriter.writeRoomFile(promptFileName(), this.roomList);
+    }
+
+    private void readFile() throws IOException, ClassNotFoundException {
+        this.roomList = RoomReader.readRoomFile(promptFileName());
     }
 
     private void printRooms() {
